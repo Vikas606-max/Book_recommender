@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Books for Mood: {{ mood|capitalize }}</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background: linear-gradient(to right, #7091e6, #ffffff);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .navbar {
+      background: linear-gradient(to right, #ae2896, #3c009d);
+      padding: 0.8rem 1rem;
+    }
+
+    .navbar-brand {
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+
+    .nav-link {
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-link:hover {
+      color: #ffc107 !important;
+    }
+
+    .section-heading {
+      font-size: 2rem;
+      font-weight: 600;
+      background-color: #ede8f5;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .card {
+      background-color: #ede8f5;
+      border-radius: 10px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      height: 100%;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    .card-img-top {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+    }
+
+    .card-body {
+      padding: 1rem;
+    }
+
+    .text-color {
+      color: #000;
+    }
+
+    .btn-group {
+      margin: 3rem auto;
+    }
+
+    .btn-group a {
+      min-width: 180px;
+      font-weight: 500;
+    }
+
+    .alert {
+      font-size: 1rem;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <ul class="navbar-nav flex-row me-auto">
+        <li class="nav-item me-3">
+          <a class="nav-link text-white" href="/">Home</a>
+        </li>
+        <li class="nav-item me-3">
+          <a class="nav-link text-white" href="/select_mood">Select Mood</a>
+        </li>
+      </ul>
+      <a class="navbar-brand text-white ms-auto" href="#">Book Recommender</a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container mt-5">
+    <h2 class="section-heading">Books for Mood: {{ mood|capitalize }}</h2>
+
+    {% if error %}
+      <div class="alert alert-danger text-center">{{ error }}</div>
+    {% else %}
+      <div class="row">
+        {% for book in books %}
+          <div class="col-sm-6 col-md-4 col-lg-3 mb-4 d-flex">
+            <div class="card w-100">
+              <img src="{{ book.image }}" class="card-img-top" alt="Cover of {{ book.title }}" />
+              <div class="card-body text-center">
+                <h6 class="card-title text-color">{{ book.title }}</h6>
+                <p class="card-text text-color">by {{ book.author }}</p>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <!-- Navigation Buttons -->
+    <div class="text-center btn-group">
+      <a href="/select_mood" class="btn btn-secondary me-3">Choose Another Mood</a>
+      <a href="/" class="btn btn-outline-primary">Go Home</a>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
